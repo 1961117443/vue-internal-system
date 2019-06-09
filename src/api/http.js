@@ -34,7 +34,7 @@ function filterNull (o) {
 
 function apiAxios (method, url, params, success, failure) {
   if (params) {
-    params = filterNull(params)
+    params = filterNull(params) 
   } 
   axios({
     method: method,
