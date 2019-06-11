@@ -9,6 +9,13 @@ import api from './api/http.js'
 //讲API方法绑定到全局
 Vue.prototype.$api = api
 
+//引入mint-ui
+import MintUI from  'mint-ui'
+import 'mint-ui/lib/style.css' 
+Vue.use(MintUI)
+//引入mui样式
+import './lib/mui/css/mui.min.css'
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
