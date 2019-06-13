@@ -23,7 +23,6 @@
 				<span class="mui-tab-label">设置</span>
       </a>-->
     </nav>
-    <h1>123</h1>
   </div>
 </template>
 

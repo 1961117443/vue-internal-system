@@ -1,15 +1,70 @@
 <template>
-    <div>
-        <h2>工作台</h2>
-    </div>
+  <div>
+    <ul class="mui-table-view mui-grid-view mui-grid-9">
+      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+        <router-link to="/demandlist">
+          <span class="mui-icon mui-icon-home"></span>
+          <div class="mui-media-body">需求列表</div>
+        </router-link>
+      </li>
+      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+        <a href="#">
+          <span class="mui-icon mui-icon-email">
+            <span class="mui-badge">5</span>
+          </span>
+          <div class="mui-media-body">Email</div>
+        </a>
+      </li>
+      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+        <a href="#">
+          <span class="mui-icon mui-icon-chatbubble"></span>
+          <div class="mui-media-body">Chat</div>
+        </a>
+      </li>
+      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+        <a href="#">
+          <span class="mui-icon mui-icon-location"></span>
+          <div class="mui-media-body">location</div>
+        </a>
+      </li>
+      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+        <a href="#">
+          <span class="mui-icon mui-icon-search"></span>
+          <div class="mui-media-body">Search</div>
+        </a>
+      </li>
+      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+        <a href="#">
+          <span class="mui-icon mui-icon-phone"></span>
+          <div class="mui-media-body">Phone</div>
+        </a>
+      </li>
+      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+        <a href="#">
+          <span class="mui-icon mui-icon-gear"></span>
+          <div class="mui-media-body">Setting</div>
+        </a>
+      </li>
+      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+        <a href="#">
+          <span class="mui-icon mui-icon-info"></span>
+          <div class="mui-media-body">about</div>
+        </a>
+      </li>
+      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+        <a href="#">
+          <span class="mui-icon mui-icon-more"></span>
+          <div class="mui-media-body">more</div>
+        </a>
+      </li>
+    </ul>
+    <h2>工作台</h2>
+  </div>
 </template>
 
 <script>
-    export default {
-        
-    }
+export default {};
 </script>
 
 <style lang="scss" scoped>
-
 </style>

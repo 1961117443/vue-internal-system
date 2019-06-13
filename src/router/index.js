@@ -3,6 +3,8 @@ import Router from 'vue-router'
 // import Home from '@/components/home.vue' 
 import Workbench from '@/components/Workbench.vue';
 import User from '@/components/User.vue';
+import DemandList from '@/components/DemandList.vue';
+import DemandInfo from '@/components/DemandInfo.vue';
 
 Vue.use(Router)
 
@@ -18,11 +20,21 @@ export default new Router({
     },
     {
       path: '/workbench',
-      component: Workbench
+      component: Workbench,
+      children:[
+      ]
     },
     {
       path: '/user',
       component: User
+    } ,
+    {
+      path: '/demandlist',
+      component: DemandList
+    },
+    {
+      path: '/demandinfo',
+      component: DemandInfo
     }
   ],
   linkActiveClass: 'mui-active'
