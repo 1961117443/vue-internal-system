@@ -5,7 +5,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data(){
+    return{
+      id:this.$route.params.id
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

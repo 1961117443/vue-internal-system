@@ -57,8 +57,7 @@
           <div class="mui-media-body">more</div>
         </a>
       </li>
-    </ul>
-    <h2>工作台</h2>
+    </ul> 
   </div>
 </template>
 

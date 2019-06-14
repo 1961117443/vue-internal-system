@@ -33,7 +33,7 @@ export default new Router({
       component: DemandList
     },
     {
-      path: '/demandinfo',
+      path: '/demandinfo/:id',
       component: DemandInfo
     }
   ],
