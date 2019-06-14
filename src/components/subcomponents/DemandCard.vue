@@ -18,11 +18,16 @@
         </table>
       </div>
       <div class="mui-card-content">
-        <div class="mui-card-content-inner" slot="right">{{demand.Descrip}}</div>
+        <div class="mui-card-content-inner" slot="right">
+         {{demand.Descrip}}
+         </div>
       </div>
       <!-- 工具栏 -->
       <div class="mui-card-footer">
         <mt-button type="primary" size="small" @click="infoHandler(demand.BillCode)">详情</mt-button>
+        <mt-button type="primary" v-show="false" size="small" @click="auditHandler(demand.BillCode)">审核</mt-button>
+        <mt-button type="primary" size="small" @click="rejectHandler(demand.BillCode)">拒绝</mt-button>
+        <mt-button type="primary" size="small" @click="unauditHandler(demand.BillCode)">反审</mt-button>
       </div>
     </div>
   </div>
@@ -49,6 +54,15 @@ export default {
   methods:{
     infoHandler(id){ 
       this.$router.push('/demandinfo/'+id)
+    },
+    auditHandler(id){
+
+    },
+    unauditHandler(id){
+      
+    },
+    rejectHandler(id){
+      
     }
   }
 };
@@ -81,14 +95,15 @@ export default {
     }
     .mui-card-content {
       .mui-card-content-inner {
-        padding: 5px 5px;
-        height: 75px;
+        padding: 5px 5px; 
+        font-size: 12px;
       }
     }
     .mui-card-footer {
       min-height: 38px;
       font-size: 12px;
-      padding: 5px 5px;
+      padding: 5px 5px; 
+      display: -webkit-box;
     }
   }
 }
