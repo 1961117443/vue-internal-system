@@ -153,7 +153,7 @@ export default {
       setTimeout(()=>{
         this.demands.push(o)
         this.allLoaded = true // 若数据已全部获取完毕
-        this.$refs.loadmore.onBottomLoaded()
+       // this.$refs.loadmore.onBottomLoaded()
       },1000)
       
       
