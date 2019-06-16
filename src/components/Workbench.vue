@@ -48,7 +48,7 @@
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
         <a href="#">
           <span class="mui-icon mui-icon-info"></span>
-          <div class="mui-media-body">关于</div>
+          <div class="mui-media-body">需求安排</div>
         </a>
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">

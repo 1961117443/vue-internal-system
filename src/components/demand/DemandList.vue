@@ -24,6 +24,7 @@ export default {
           BillCode: "a123456789",
           InputDate: "2019-01-01 12:12:12",
           CustomerName: "测试客户",
+          AuditDate:"2019-01-01 12:12:12",
           Descrip:
             "包含页眉页脚的卡片，页眉常用来显示面板标题，包含页眉页脚的卡片，页眉常用来显示面板标题，包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）"
         },
@@ -31,6 +32,7 @@ export default {
           BillCode: "b123456789",
           InputDate: "2019-01-01 12:12:12",
           CustomerName: "测试客户",
+          AuditDate:"2019-01-01 12:12:12",
           Descrip:
             "包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）"
         },
@@ -38,6 +40,7 @@ export default {
           BillCode: "c123456789",
           InputDate: "2019-01-01 12:12:12",
           CustomerName: "测试客户",
+          AuditDate:"",
           Descrip:
             "包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）"
         },
@@ -45,6 +48,7 @@ export default {
           BillCode: "d123456789",
           InputDate: "2019-01-01 12:12:12",
           CustomerName: "测试客户",
+          AuditDate:"",
           Descrip:
             "包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）"
         },
@@ -52,6 +56,7 @@ export default {
           BillCode: "e123456789",
           InputDate: "2019-01-01 12:12:12",
           CustomerName: "测试客户",
+          AuditDate:"",
           Descrip:
             "包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）"
         },
@@ -59,6 +64,7 @@ export default {
           BillCode: "f123456789",
           InputDate: "2019-01-01 12:12:12",
           CustomerName: "测试客户",
+          AuditDate:"",
           Descrip:
             "包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）"
         },
@@ -66,6 +72,7 @@ export default {
           BillCode: "g123456789",
           InputDate: "2019-01-01 12:12:12",
           CustomerName: "测试客户",
+          AuditDate:"",
           Descrip:
             "包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）"
         },
@@ -73,6 +80,7 @@ export default {
           BillCode: "h123456789",
           InputDate: "2019-01-01 12:12:12",
           CustomerName: "测试客户",
+          AuditDate:"",
           Descrip:
             "包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）"
         },
@@ -80,6 +88,7 @@ export default {
           BillCode: "i123456789",
           InputDate: "2019-01-01 12:12:12",
           CustomerName: "测试客户",
+          AuditDate:"",
           Descrip:
             "包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）"
         },
@@ -87,6 +96,7 @@ export default {
           BillCode: "j123456789",
           InputDate: "2019-01-01 12:12:12",
           CustomerName: "测试客户",
+          AuditDate:"",
           Descrip:
             "包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）"
         },
@@ -94,6 +104,7 @@ export default {
           BillCode: "k123456789",
           InputDate: "2019-01-01 12:12:12",
           CustomerName: "测试客户",
+          AuditDate:"",
           Descrip:
             "包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）"
         },
@@ -101,6 +112,7 @@ export default {
           BillCode: "l123456789",
           InputDate: "2019-01-01 12:12:12",
           CustomerName: "测试客户",
+          AuditDate:"",
           Descrip:
             "包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）"
         },
@@ -108,6 +120,7 @@ export default {
           BillCode: "m123456789",
           InputDate: "2019-01-01 12:12:12",
           CustomerName: "测试客户",
+          AuditDate:"",
           Descrip:
             "包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）"
         },
@@ -115,6 +128,7 @@ export default {
           BillCode: "n123456789",
           InputDate: "2019-01-01 12:12:12",
           CustomerName: "测试客户",
+          AuditDate:"",
           Descrip:
             "包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）"
         },
@@ -122,6 +136,7 @@ export default {
           BillCode: "o123456789",
           InputDate: "2019-01-01 12:12:12",
           CustomerName: "测试客户",
+          AuditDate:"",
           Descrip:
             "包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）"
         }

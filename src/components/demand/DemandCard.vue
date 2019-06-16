@@ -18,15 +18,23 @@
         </table>
       </div>
       <div class="mui-card-content">
-        <div class="mui-card-content-inner" slot="right">
-         {{demand.Descrip}}
-         </div>
+        <div class="mui-card-content-inner" slot="right">{{demand.Descrip}}</div>
       </div>
       <!-- 工具栏 -->
       <div class="mui-card-footer">
         <mt-button type="default" size="small" @click="infoHandler(demand.BillCode)">详情</mt-button>
-        <mt-button type="primary" size="small" @click="auditHandler(demand.BillCode)">审核</mt-button>
-        <mt-button type="primary" size="small" @click="unauditHandler(demand.BillCode)">反审</mt-button>
+        <mt-button
+          v-show="!demand.AuditDate"
+          type="primary"
+          size="small"
+          @click="auditHandler(demand.BillCode)"
+        >审核</mt-button>
+        <mt-button
+          v-show="demand.AuditDate"
+          type="primary"
+          size="small"
+          @click="unauditHandler(demand.BillCode)"
+        >反审</mt-button>
         <mt-button type="danger" size="small" @click="rejectHandler(demand.BillCode)">拒绝</mt-button>
       </div>
     </div>
@@ -34,13 +42,13 @@
 </template>
 
 <script>
-import { Indicator  } from 'mint-ui';
+import { Toast, MessageBox, Indicator } from "mint-ui";
 export default {
   data() {
     return {
       //demand:{}
-    } 
-  }, 
+    };
+  },
   props: {
     demand: {
       type: Object,
@@ -48,35 +56,65 @@ export default {
         BillCode: "",
         InputDate: "",
         CustomerName: "",
-        Descrip: ""
+        Descrip: "",
+        AuditDate: ""
       }
     }
   },
-  methods:{
-    infoHandler(id){ 
-      this.$router.push('/home/demandinfo/'+id)
+  methods: {
+    infoHandler(id) {
+      this.$router.push("/home/demandinfo/" + id);
     },
-    auditHandler(id){
-       Indicator.open({
-        text: '审核中...',
-        spinnerType: 'fading-circle'
+    auditHandler(id) {
+      MessageBox.confirm("确定执行此操作?").then(action => {
+        Indicator.open({
+          text: "审核中...",
+          spinnerType: "fading-circle"
+        });
+        // this.$api.post('',{},res=>{
+        //   this.demand=res.data
+        //   Toast({
+        //     message: '操作成功',
+        //     position: 'center',
+        //     duration: 500
+        //   })
+        // })
+        setTimeout(() => {
+          this.demand.AuditDate = Date.now;
+          Indicator.close();
+          Toast({
+            message: "操作成功",
+            position: "center",
+            duration: 500
+          });
+        }, 500);
       });
-     this.demand.BillCode = this.demand.BillCode+"11111"
-      setTimeout(() => {
-        Indicator.close()
-      }, 2000);
     },
-    unauditHandler(id){
-      Indicator.open({
-        text: '反审中...',
-        spinnerType: 'fading-circle'
+    unauditHandler(id) {
+      MessageBox.confirm("确定执行此操作?").then(action => {
+        Indicator.open({
+          text: "反审中...",
+          spinnerType: "fading-circle"
+        });
+        setTimeout(() => {
+          this.demand.AuditDate = "";
+          Indicator.close();
+        }, 800);
       });
-      setTimeout(() => {
-        Indicator.close()
-      }, 2000);
     },
-    rejectHandler(id){
-      
+    rejectHandler(id) {
+      MessageBox.prompt("拒批原因", "")
+        .then(({ value, action }) => {
+          Indicator.open({
+            text: "拒批中...",
+            spinnerType: "fading-circle"
+          });
+          setTimeout(() => {
+            // this.demand.AuditDate = "";
+            Indicator.close();
+          }, 800);
+        })
+        .catch(ex => {});
     }
   }
 };
@@ -109,14 +147,14 @@ export default {
     }
     .mui-card-content {
       .mui-card-content-inner {
-        padding: 5px 5px; 
+        padding: 5px 5px;
         font-size: 12px;
       }
     }
     .mui-card-footer {
       min-height: 38px;
       font-size: 12px;
-      padding: 5px 5px; 
+      padding: 5px 5px;
       display: -webkit-box;
     }
   }

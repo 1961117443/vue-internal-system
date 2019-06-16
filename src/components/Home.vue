@@ -56,13 +56,13 @@ export default {
 
 <style lang="scss" scoped>
 .mint-header {
-  z-index: 99;
+  z-index: 2;
   font-size: 15px;
   overflow-x:hidden;
 }
-mui-bar-tab {
-  z-index: 99;
-}
+// mui-bar-tab {
+//   z-index: 99;
+// }
 
 .v-enter{
   opacity: 0;
