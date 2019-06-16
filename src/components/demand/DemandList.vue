@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import DemandCard from "@/components/subcomponents/DemandCard.vue";
+import DemandCard from "@/components/demand/DemandCard.vue";
 export default {
   data() {
     return {

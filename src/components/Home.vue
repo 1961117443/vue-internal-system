@@ -2,14 +2,16 @@
   <div>
     <!--顶部header 区域-->
     <mt-header fixed title="内部系统">
-      <router-link to>
-        <mt-button icon="back" @click="$router.back(-1)">返回</mt-button>
-      </router-link>
+      <span slot="left" @click="$router.back(-1)" v-show="showBack">
+        <mt-button icon="back">返回</mt-button>
+      </span>
     </mt-header>
     <!--中间路由 router-view 区域-->
-    <router-view></router-view>
+    <transition>
+      <router-view></router-view>
+    </transition>
     <!--底部 Tabbar 区域-->
-    <nav class="mui-bar mui-bar-tab">
+    <nav class="mui-bar mui-bar-tab" v-show="showNav">
       <router-link to="/home/workbench" class="mui-tab-item">
         <span class="mui-icon mui-icon-home"></span>
         <span class="mui-tab-label">工作台</span>
@@ -31,14 +33,50 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      showBack: false,
+      showNav:true
+    };
+  },
+  created() {
+    this.showBack = this.$route.path === "/home/workbench" ? false : true;
+   // this.showNav = this.$route.path === "/home/workbench" || this.$route.path==="/home/user"? true : false;
+  },
+  methods: {},
+  watch: {
+    "$route.path": function(newVal) {
+      this.showBack = newVal === "/home/workbench" ? false : true;
+      //this.showNav = newVal === "/home/workbench" || newVal==="/home/user" ? true : false;
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-    mt-header{
-        z-index: 99;
-    }
-    mui-bar-tab{
-        z-index: 99;
-    }
+.mint-header {
+  z-index: 99;
+  font-size: 15px;
+  overflow-x:hidden;
+}
+mui-bar-tab {
+  z-index: 99;
+}
+
+.v-enter{
+  opacity: 0;
+  transform: translateX(100%)
+}
+.v-leave-to{
+  opacity: 0;
+  transform: translateX(-100%);
+  position:absolute;
+}
+
+.v-enter-active
+.v-leave-active{
+  transition: all 0.5s ease;
+}
+
 </style>

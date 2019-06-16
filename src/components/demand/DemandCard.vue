@@ -24,20 +24,21 @@
       </div>
       <!-- 工具栏 -->
       <div class="mui-card-footer">
-        <mt-button type="primary" size="small" @click="infoHandler(demand.BillCode)">详情</mt-button>
-        <mt-button type="primary" v-show="false" size="small" @click="auditHandler(demand.BillCode)">审核</mt-button>
-        <mt-button type="primary" size="small" @click="rejectHandler(demand.BillCode)">拒绝</mt-button>
+        <mt-button type="default" size="small" @click="infoHandler(demand.BillCode)">详情</mt-button>
+        <mt-button type="primary" size="small" @click="auditHandler(demand.BillCode)">审核</mt-button>
         <mt-button type="primary" size="small" @click="unauditHandler(demand.BillCode)">反审</mt-button>
+        <mt-button type="danger" size="small" @click="rejectHandler(demand.BillCode)">拒绝</mt-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { Indicator  } from 'mint-ui';
 export default {
   data() {
     return {
-      
+      //demand:{}
     } 
   }, 
   props: {
@@ -53,13 +54,26 @@ export default {
   },
   methods:{
     infoHandler(id){ 
-      this.$router.push('/demandinfo/'+id)
+      this.$router.push('/home/demandinfo/'+id)
     },
     auditHandler(id){
-
+       Indicator.open({
+        text: '审核中...',
+        spinnerType: 'fading-circle'
+      });
+     this.demand.BillCode = this.demand.BillCode+"11111"
+      setTimeout(() => {
+        Indicator.close()
+      }, 2000);
     },
     unauditHandler(id){
-      
+      Indicator.open({
+        text: '反审中...',
+        spinnerType: 'fading-circle'
+      });
+      setTimeout(() => {
+        Indicator.close()
+      }, 2000);
     },
     rejectHandler(id){
       

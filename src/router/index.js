@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // import Home from '@/components/home.vue' 
+
+//引入自己的组件
+import Home from '@/components/Home.vue';
 import Workbench from '@/components/Workbench.vue';
 import User from '@/components/User.vue';
-import DemandList from '@/components/DemandList.vue';
-import DemandInfo from '@/components/DemandInfo.vue';
-import Home from '@/components/Home.vue';
+import DemandList from '@/components/demand/DemandList.vue';
+import DemandInfo from '@/components/demand/DemandInfo.vue';
 
 Vue.use(Router)
 
@@ -17,7 +19,8 @@ export default new Router({
     },
     {
       path: '/home',
-      component: Home,
+      //redirect: '/home/workbench',
+     component: Home,
       children:[
         {
           path: 'user',
@@ -29,6 +32,10 @@ export default new Router({
         }, {
           path: 'demandlist',
           component: DemandList
+        },
+        {
+          path: 'demandinfo/:id',
+          component: DemandInfo
         }
       ]
     },
@@ -47,10 +54,10 @@ export default new Router({
     //   path: '/demandlist',
     //   component: DemandList
     // },
-    {
-      path: '/demandinfo/:id',
-      component: DemandInfo
-    }
+    // {
+    //   path: '/demandinfo/:id',
+    //   component: DemandInfo
+    // }
   ],
   linkActiveClass: 'mui-active'
 })
