@@ -37,10 +37,14 @@
     <h3>{{demand.Descrip}}</h3>
     <!--需求图文信息-->
     <h1>需求详情</h1>
+    <!--发表评论-->
+    <comment></comment>
   </div>
 </template>
 
 <script>
+import comment from '../subcomponents/comment'
+
 export default {
   data() {
     return {
@@ -54,6 +58,9 @@ export default {
           "包含页眉页脚的卡片，页眉常用来显示面板标题，包含页眉页脚的卡片，页眉常用来显示面板标题，包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）"
       }
     };
+  },
+  components:{
+    comment
   }
 };
 </script>
