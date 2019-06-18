@@ -18,24 +18,24 @@
         </table>
       </div>
       <div class="mui-card-content">
-        <div class="mui-card-content-inner" slot="right">{{demand.Descrip}}</div>
+        <div class="mui-card-content-inner" slot="right">{{demand.Describe}}</div>
       </div>
       <!-- 工具栏 -->
       <div class="mui-card-footer">
-        <mt-button type="default" size="small" @click="infoHandler(demand.BillCode)">详情</mt-button>
+        <mt-button type="default" size="small" @click="infoHandler(demand.ID)">详情</mt-button>
         <mt-button
           v-show="!demand.AuditDate"
           type="primary"
           size="small"
-          @click="auditHandler(demand.BillCode)"
+          @click="auditHandler(demand.ID)"
         >审核</mt-button>
         <mt-button
           v-show="demand.AuditDate"
           type="primary"
           size="small"
-          @click="unauditHandler(demand.BillCode)"
+          @click="unauditHandler(demand.ID)"
         >反审</mt-button>
-        <mt-button type="danger" size="small" @click="rejectHandler(demand.BillCode)">拒绝</mt-button>
+        <mt-button type="danger" size="small" @click="rejectHandler(demand.ID)">拒绝</mt-button>
       </div>
     </div>
   </div>
@@ -53,10 +53,11 @@ export default {
     demand: {
       type: Object,
       default: {
+        ID:"",
         BillCode: "",
         InputDate: "",
         CustomerName: "",
-        Descrip: "",
+        Describe: "",
         AuditDate: ""
       }
     }
@@ -71,23 +72,15 @@ export default {
           text: "审核中...",
           spinnerType: "fading-circle"
         });
-        // this.$api.post('',{},res=>{
-        //   this.demand=res.data
-        //   Toast({
-        //     message: '操作成功',
-        //     position: 'center',
-        //     duration: 500
-        //   })
-        // })
-        setTimeout(() => {
-          this.demand.AuditDate = Date.now;
-          Indicator.close();
+        this.$api.post('/api/demand/audit',{id:this.id},res=>{
+          //this.demand=res.data
+          Indicator.close()
           Toast({
-            message: "操作成功",
-            position: "center",
+            message: '操作成功',
+            position: 'center',
             duration: 500
-          });
-        }, 500);
+          })
+        }) 
       });
     },
     unauditHandler(id) {
@@ -125,11 +118,11 @@ export default {
   background-color: #eee;
   overflow: hidden;
   .mui-card {
-    font-size: 12px;
+    //font-size: 12px;
     .mui-card-header {
       padding: 5px 5px;
       min-height: 38px;
-      font-size: 12px;
+     // font-size: 12px;
       .info {
         .title {
           font-weight: bold;

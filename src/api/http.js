@@ -1,5 +1,5 @@
 // 配置API接口地址
-var root = 'http://123.206.33.109:8081/api'
+var root = 'http://hx8yak.natappfree.cc'
 // 引用axios
 var axios = require('axios')
 // 自定义判断元素类型JS
