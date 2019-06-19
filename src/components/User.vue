@@ -1,15 +1,19 @@
 <template>
-    <div>
-        <h1>我的123</h1>
-    </div>
+  <div>
+    <h1>我的123</h1> 
+  </div>
 </template>
 
 <script>
-    export default {
-        
-    }
+export default {
+  data() {
+    return {
+     
+    };
+  },
+  methods: {}
+};
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss" scoped> 
 </style>

@@ -1,29 +1,33 @@
 <template>
   <div>
-    <mt-loadmore
+    <!-- <mt-loadmore
       :top-method="loadTop"
       :bottom-method="loadBottom"
       :bottom-all-loaded="allLoaded"
       ref="loadmore"
-    >
+    > -->
+    <transition-group name="fade">
       <demandCard v-for="demand in demands" :key="demand.ID" :demand="demand"></demandCard>
-      <!-- <mt-button 
+    </transition-group>
+      
+      <mt-button v-show="this.demands.length>0 && !this.allLoaded"
           type="primary"
           size="large"
           @click="getDemandList()"
-        >加载更多</mt-button> -->
-    </mt-loadmore> 
+        >加载更多</mt-button>
+    <!-- </mt-loadmore>  -->
   </div>
 </template>
 
 <script>
 import DemandCard from "@/components/demand/DemandCard.vue";
+import { Indicator } from 'mint-ui';
 export default {
   data() {
     return {
       allLoaded: false,
       currentPageIndex:1,
-      demands: [ ]
+      demands: []
     };
   },
   components: {
@@ -34,11 +38,20 @@ export default {
   },
   methods: {
     //获取需求列表
-    getDemandList(){ 
+    getDemandList(){
+      Indicator.open({
+        text: '加载中...',
+        spinnerType: 'fading-circle'
+      }); 
       var index=this.currentPageIndex
       this.$api.get('/api/demand/list',{pageIndex:index,pageSize:10},res=>{
+        ///如果没有数据了，不显示加载更多按钮
+        if(res.Data.length===0){
+            this.allLoaded = true;
+        }
         this.demands = this.demands.concat(res.Data)
         this.currentPageIndex=index+1
+        Indicator.close();
       })
     },
     loadTop() {
@@ -76,4 +89,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/* 可以设置不同的进入和离开动画 */
+/* 设置持续时间和动画函数 */
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 2s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active, 2.1.8 版本以下 */ {
+    opacity: 0
+}
 </style>

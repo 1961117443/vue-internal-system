@@ -6,7 +6,7 @@
         <mt-button icon="back">返回</mt-button>
       </span>
     </mt-header>
-    <!--中间路由 router-view 区域-->
+    <!--中间路由 router-view 区域--> 
     <transition>
       <router-view></router-view>
     </transition>
@@ -35,7 +35,7 @@
 <script>
 export default {
   data() {
-    return {
+    return { 
       showBack: false,
       showNav:true
     };
@@ -44,7 +44,9 @@ export default {
     this.showBack = this.$route.path === "/home/workbench" ? false : true;
    // this.showNav = this.$route.path === "/home/workbench" || this.$route.path==="/home/user"? true : false;
   },
-  methods: {},
+  methods: {
+   
+  },
   watch: {
     "$route.path": function(newVal) {
       this.showBack = newVal === "/home/workbench" ? false : true;
@@ -56,7 +58,7 @@ export default {
 
 <style lang="scss" scoped>
 .mint-header {
-  z-index: 2;
+  z-index: 99;
   font-size: 15px;
   overflow-x:hidden;
 }
@@ -74,9 +76,10 @@ export default {
   position:absolute;
 }
 
-.v-enter-active
+.v-enter-active,
 .v-leave-active{
-  transition: all 0.5s ease;
+  //transition: opacity 2s;
+ transition: all 0.5s ease;
 }
 
 </style>

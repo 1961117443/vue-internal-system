@@ -49,7 +49,9 @@ export default {
   /* margin-top: 60px; */
   padding-top: 40px;
   padding-bottom: 50px;
-  /* margin-bottom: 40px; */
+  /* margin-bottom: 40px; */ 
+  overflow-x:hidden;
+}
 
   .v-enter {
     opacity: 0;
@@ -61,8 +63,8 @@ export default {
     position: absolute;
   }
 
-  .v-enter-active .v-leave-active {
+  .v-enter-active,.v-leave-active {
     transition: all 0.5s ease;
-  }
-}
+  } 
+ 
 </style>
