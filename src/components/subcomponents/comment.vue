@@ -5,7 +5,7 @@
     <textarea placeholder="请输入评论内容（最多吐槽120字）" v-model="content" maxlength="120"></textarea>
     <mt-button type="primary" size="large" @click="commentHandle">发表评论</mt-button>
     <div class="cmt-list"> 
-      <div class="cmt-item"  v-for="comment,i in comments" :key="i">
+      <div class="cmt-item"  v-for="(comment,index) in comments" :key="index">
         <div class="cmt-title">
             第{{i+1}}楼&nbsp;&nbsp;用户：匿名用户&nbsp;&nbsp;发表时间：2019-01-01 01:01:01
         </div>
