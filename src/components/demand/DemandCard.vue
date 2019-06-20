@@ -2,13 +2,22 @@
   <div class="demand-container">
     <div class="mui-card">
       <div class="mui-card-header">
-        <table class="info">
+        
+        <!-- <div class="info-row">
+          <div class="info-column">1</div>
+          <div class="info-column">2</div>
+        </div>
+        <div class="info-row1">
+          <div class="info-column1">3</div>
+          <div class="info-column1">4</div>
+        </div>  -->
+        <table class="info" border="0">
           <tbody>
             <tr>
               <td class="title">需求编号:</td>
               <td class="content">{{demand.BillCode}}</td>
               <td class="title">录入时间:</td>
-              <td class="content">{{demand.InputDate}}</td>
+              <td class="content">{{demand.InputDate | dateFormat('YYYY-MM-DD') }}</td>
             </tr>
             <tr>
               <td class="title">客户名称:</td>
@@ -18,7 +27,7 @@
         </table>
       </div>
       <div class="mui-card-content">
-        <div class="mui-card-content-inner" slot="right">{{demand.Describe}}</div>
+        <div class="mui-card-content-inner" slot="right">{{demand.Describe|interceptFormat}}</div>
       </div>
       <!-- 工具栏 -->
       <div class="mui-card-footer">
@@ -137,6 +146,16 @@ export default {
       h1 {
         font-size: 12px;
       }
+      .info-row{
+        width: 100%;
+        height:50px;
+border:#000000 1px solid;
+        .info-column{
+          float: left;
+          width: 49%;
+          border: 1px solid #f00;
+        }
+      } 
     }
     .mui-card-content {
       .mui-card-content-inner {

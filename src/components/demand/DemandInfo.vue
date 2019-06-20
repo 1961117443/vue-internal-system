@@ -8,7 +8,7 @@
             <td class="title">需求编号:</td>
             <td class="content">{{demand.BillCode}}</td>
             <td class="title">录入时间:</td>
-            <td class="content">{{demand.InputDate}}</td>
+            <td class="content">{{demand.InputDate| dateFormat}}</td>
           </tr>
           <tr>
             <td class="title">客户名称:</td>
@@ -18,13 +18,13 @@
             <td class="title">审核人:</td>
             <td class="content">{{demand.BillCode}}</td>
             <td class="title">审核时间:</td>
-            <td class="content">{{demand.InputDate}}</td>
+            <td class="content">{{demand.InputDate| dateFormat}}</td>
           </tr>
           <tr>
             <td class="title">拒批人:</td>
             <td class="content">{{demand.BillCode}}</td>
             <td class="title">拒批时间:</td>
-            <td class="content">{{demand.InputDate}}</td>
+            <td class="content">{{demand.InputDate| dateFormat}}</td>
           </tr>
           <tr>
             <td class="title">拒批意见:</td>
@@ -38,7 +38,7 @@
     <!--需求图文信息-->
     <h1>需求详情</h1>
     <!--发表评论-->
-    <comment></comment>
+    <comment :id="id"></comment>
   </div>
 </template>
 
