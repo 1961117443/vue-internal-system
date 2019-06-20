@@ -7,7 +7,7 @@
     <div class="cmt-list"> 
       <div class="cmt-item"  v-for="(comment,index) in comments" :key="index">
         <div class="cmt-title">
-            第{{i+1}}楼&nbsp;&nbsp;用户：匿名用户&nbsp;&nbsp;发表时间：2019-01-01 01:01:01
+            第{{index+1}}楼&nbsp;&nbsp;用户：匿名用户&nbsp;&nbsp;发表时间：2019-01-01 01:01:01
         </div>
         <div class="cmt-body"> 
             {{ comment.Content}}
