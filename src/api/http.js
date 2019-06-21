@@ -1,6 +1,11 @@
+    
+//import store from "../store";
+import router from "../router/index";
+import { Toast,Indicator } from 'mint-ui';
+
 // 配置API接口地址
-// var root ="http://localhost:3000"
-var root = 'http://8v2anr.natappfree.cc'
+var root ="http://localhost:3000"
+// var root = 'http://8v2anr.natappfree.cc'
 // 引用axios
 var axios = require('axios')
 // 自定义判断元素类型JS
@@ -23,6 +28,50 @@ function filterNull (o) {
   }
   return o
 }
+ 
+/*
+  axios 请求发送拦截处理
+*/
+axios.interceptors.request.use(
+  config => {
+    //console.log(config)
+    if (router.$access_token) {
+      config.headers.Authorization ="Bearer "+ router.$access_token;
+    }
+    // if (storeTemp.state.token) {
+    //   // 判断是否存在token，如果存在的话，则每个http header都加上token
+    //   config.headers.Authorization ="Bearer "+ storeTemp.state.token;
+    // }
+    return config;
+  },
+  err => {
+    return Promise.reject(err);
+  }
+)
+
+/*
+  axios 请求返回拦截处理
+*/
+axios.interceptors.response.use(res=> res,error=>{
+  if (error.response) {
+    switch (error.response.status) {
+      case 401: 
+      if (router.$access_token){
+        this.get(router.currentRoute.fullPath)
+          console.log(router.currentRoute.fullPath);
+      }
+          console.log(error);
+          Toast({message:'请先登录。。。',duration:800,position:'top'})
+        // 返回 401 清除token信息并跳转到登录页面
+              //store.commit("saveToken", "");
+              router.replace({
+                path: "/login",
+                query: { redirect: router.currentRoute.fullPath } 
+              });   
+    }
+  }
+  return Promise.reject(error.response.data); // 返回接口返回的错误信息
+})
 /*
   接口处理函数
   这个函数每个项目都是不一样的，我现在调整的是适用于
@@ -37,13 +86,13 @@ function apiAxios (method, url, params, success, failure) {
   if (params) {
     params = filterNull(params) 
   } 
-  axios({
+  return axios({
     method: method,
     url: url,
     data: method === 'POST' || method === 'PUT' ? params : null,
     params: method === 'GET' || method === 'DELETE' ? params : null,
 　　 //headers 是即将被发送的自定义请求头，还记得我们的jwt验证么，可以封装进来，注意!这里如果要添加 headers ，一定要是正确的值
-　　 headers:{"Authorization":"Bearer xxxxxxx"},
+　　// headers:{"Authorization":"Bearer ******"},
     baseURL: root,
     withCredentials: false
   })
@@ -63,9 +112,16 @@ function apiAxios (method, url, params, success, failure) {
     .catch(function (err) {
       let res = err.response
       if (err) {
-        window.alert('api error, HTTP CODE: ' + res.status)
+        console.log(err);
+        if (res && res.status) {
+          window.alert('api error, HTTP CODE: ' + res.status)
+        }
       }
     })
+    // .finally(function(){
+    //   console.log('finally');
+    // })
+   
 }
 
 // 返回在vue模板中的调用接口

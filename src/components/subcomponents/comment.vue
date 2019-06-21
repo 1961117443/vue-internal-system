@@ -7,28 +7,12 @@
     <div class="cmt-list"> 
       <div class="cmt-item"  v-for="(comment,index) in comments" :key="index">
         <div class="cmt-title">
-            第{{index+1}}楼&nbsp;&nbsp;用户：匿名用户&nbsp;&nbsp;发表时间：2019-01-01 01:01:01
+            第{{index+1}}楼&nbsp;&nbsp;用户：{{comment.Commentator}}&nbsp;&nbsp;发表时间：{{comment.CommentTime| dateFormat }}
         </div>
         <div class="cmt-body"> 
             {{ comment.Content}}
         </div>
-      </div>
-      <!-- <div class="cmt-item">
-        <div class="cmt-title">
-            第2楼&nbsp;&nbsp;用户：匿名用户&nbsp;&nbsp;发表时间：2019-01-01 01:01:01
-        </div>
-        <div class="cmt-body">
-            坑爹需求
-        </div>
-      </div>
-      <div class="cmt-item">
-        <div class="cmt-title">
-            第3楼&nbsp;&nbsp;用户：匿名用户&nbsp;&nbsp;发表时间：2019-01-01 01:01:01
-        </div>
-        <div class="cmt-body">
-            坑爹需求
-        </div>
-      </div> -->
+      </div> 
     </div>
     <mt-button type="danger" size="large" plain @click="loadMoreHandle">加载更多</mt-button>
   </div>
@@ -51,12 +35,10 @@ export default {
   methods:{
     getComments(){
       this.$api.get('/api/comment',{id:this.id,pageIndex:this.page},res=>{
-        if (res) {
-          this.comments=this.comments.concat(res)
+        if (res.Data) {
+          this.comments=this.comments.concat(res.Data)
           this.page = this.page+1
-        }
-       // console.log(res);
-        // comments=comments.concat(res.Data)
+        } 
       })
     },
     loadMoreHandle(){
@@ -69,23 +51,20 @@ export default {
       // }
       let comment ={"SubordinateID":this.id,"Content":this.content}
        Indicator.open({
-          text: "发不中...",
+          text: "发布中...",
           spinnerType: "fading-circle"
         });
       this.$api.post('/api/comment',comment,res=>{
-        Indicator.close()
+        //Indicator.close()
         Toast({
           message: res.Data,
           position: 'center',
           duration: 500
         })
         this.comments.push(comment)
-        this.content=''
-        // if (res.Data) { 
-        //   console.log(res.Data);
-        // }
-        // comments=comments.concat(res.Data)
+        this.content='' 
       })
+      .finally(()=>Indicator.close())
     }
   }
 };

@@ -45,15 +45,18 @@ export default {
         spinnerType: 'fading-circle'
       }); 
       var index=this.currentPageIndex
-      this.$api.get('/api/demand/list',{pageIndex:index,pageSize:10},res=>{
+     this.$api.get('/api/demand/list',{pageIndex:index,pageSize:10},
+      res=>{
         ///如果没有数据了，不显示加载更多按钮
         if(res.Data.length===0){
             this.allLoaded = true;
         }
         this.demands = this.demands.concat(res.Data)
-        this.currentPageIndex=index+1
-        Indicator.close();
+        this.currentPageIndex=index+1 
       })
+      .finally(()=>{
+        Indicator.close();
+      }) 
     },
     loadTop() {
       // var index=this.currentPageIndex

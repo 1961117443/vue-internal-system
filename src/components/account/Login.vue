@@ -77,6 +77,7 @@ export default {
       }
       this.$api.get('/api/account/login',{userCode:this.user.account,passWord:this.user.passWord},res=>{
         if (res.Status===0) {
+         this.$router.$access_token = res.Data
           let instance= Toast({message:'登陆成功',duration:1000})
           setTimeout(()=>{
             this.$router.push('/home')
