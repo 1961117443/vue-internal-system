@@ -8,7 +8,7 @@
     </mt-header>
     <!--中间路由 router-view 区域--> 
     <transition>
-      <router-view></router-view>
+      <router-view class="home-content"></router-view>
     </transition>
     <!--底部 Tabbar 区域-->
     <nav class="mui-bar mui-bar-tab" v-show="showNav">
@@ -61,6 +61,12 @@ export default {
   z-index: 99;
   font-size: 15px;
   overflow-x:hidden;
+}
+.home-content{
+
+  padding-top: 40px;
+  padding-bottom: 50px; 
+  // overflow-x:hidden;
 }
 // mui-bar-tab {
 //   z-index: 99;

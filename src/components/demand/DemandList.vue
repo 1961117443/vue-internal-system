@@ -13,6 +13,7 @@
       <mt-button v-show="this.demands.length>0 && !this.allLoaded"
           type="primary"
           size="large"
+          plain
           @click="getDemandList()"
         >加载更多</mt-button>
     <!-- </mt-loadmore>  -->

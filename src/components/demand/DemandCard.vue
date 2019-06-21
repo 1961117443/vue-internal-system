@@ -2,7 +2,6 @@
   <div class="demand-container">
     <div class="mui-card">
       <div class="mui-card-header">
-        
         <!-- <div class="info-row">
           <div class="info-column">1</div>
           <div class="info-column">2</div>
@@ -10,7 +9,7 @@
         <div class="info-row1">
           <div class="info-column1">3</div>
           <div class="info-column1">4</div>
-        </div>  -->
+        </div>-->
         <table class="info" border="0">
           <tbody>
             <tr>
@@ -62,7 +61,7 @@ export default {
     demand: {
       type: Object,
       default: {
-        ID:"",
+        ID: "",
         BillCode: "",
         InputDate: "",
         CustomerName: "",
@@ -81,15 +80,15 @@ export default {
           text: "审核中...",
           spinnerType: "fading-circle"
         });
-        this.$api.post('/api/demand/audit',{id:this.id},res=>{
+        this.$api.post("/api/demand/audit", { id: this.id }, res => {
           //this.demand=res.data
-          Indicator.close()
+          Indicator.close();
           Toast({
-            message: '操作成功',
-            position: 'center',
+            message: "操作成功",
+            position: "center",
             duration: 500
-          })
-        }) 
+          });
+        });
       });
     },
     unauditHandler(id) {
@@ -131,7 +130,7 @@ export default {
     .mui-card-header {
       padding: 5px 5px;
       min-height: 38px;
-     // font-size: 12px;
+      // font-size: 12px;
       .info {
         .title {
           font-weight: bold;
@@ -146,21 +145,22 @@ export default {
       h1 {
         font-size: 12px;
       }
-      .info-row{
+      .info-row {
         width: 100%;
-        height:50px;
-border:#000000 1px solid;
-        .info-column{
+        height: 50px;
+        border: #000000 1px solid;
+        .info-column {
           float: left;
           width: 49%;
           border: 1px solid #f00;
         }
-      } 
+      }
     }
     .mui-card-content {
       .mui-card-content-inner {
         padding: 5px 5px;
         font-size: 12px;
+        //height: 80px;
       }
     }
     .mui-card-footer {

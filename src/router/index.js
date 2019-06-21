@@ -5,7 +5,9 @@ import Router from 'vue-router'
 //引入自己的组件
 import Home from '@/components/Home.vue';
 import Workbench from '@/components/Workbench.vue';
-import User from '@/components/User.vue';
+import User from '@/components/account/User.vue';
+import Login from '@/components/account/Login.vue';
+import Reg from '@/components/account/Register.vue';
 import DemandList from '@/components/demand/DemandList.vue';
 import DemandInfo from '@/components/demand/DemandInfo.vue';
 
@@ -18,9 +20,17 @@ export default new Router({
       redirect: '/home/workbench'
     },
     {
+      path: '/login',
+      component: Login
+    },
+    {
+      path: '/reg',
+      component: Reg
+    },
+    {
       path: '/home',
-      //redirect: '/home/workbench',
-     component: Home,
+      redirect: '/home/workbench',
+      component: Home,
       children:[
         {
           path: 'user',

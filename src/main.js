@@ -25,19 +25,32 @@ Vue.filter('dateFormat',function(dateStr,pattern="YYYY-MM-DD HH:mm:ss"){
       return moment(dateStr).format(pattern);
 })
 //截取字符串的过滤器
-Vue.filter('interceptFormat',function(str,length=50){
-  if(length>0){ 
-    if (str) {
-      let slen=str.replace(/[\u0391-\uFFE5]/g,"aa").length
-      if (slen>length) {
-        str= str.substring(0,length)+'...'
-      }
-    //  console.log(str+':'+str.length);
-     // str= str.substring(0,length)+'...'
-    }
-   // str = str + '字符串长度:'+ str.length
-  }
-  return str;
+Vue.filter('interceptFormat',function(str,length=0){
+
+      if (str && length>0) {
+        var sub_length = length ;  
+        var temp1 = str.replace(/[^\x00-\xff]/g,"**");
+        var temp2 = temp1.substring(0,sub_length);  
+        var x_length = temp2.split("\*").length - 1 ;  
+        var hanzi_num = x_length /2 ;  
+        sub_length = sub_length - hanzi_num ;  
+        var res = str.substring(0,sub_length-5);  
+        if(sub_length < str.length ){  
+          return  res+"。。。" ;  
+        }
+      } 
+      return str ;  
+
+
+  // if(length>0){ 
+  //   if (str) {
+  //     let slen=str.replace(/[\u0391-\uFFE5]/g,"aa").length
+  //     if (slen>length) {
+  //       str= str.substring(0,length)+'...'
+  //     }
+  //   }
+  // }
+  // return str;
 })
 
 /* eslint-disable no-new */
