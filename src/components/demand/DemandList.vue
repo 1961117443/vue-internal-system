@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     //获取需求列表
-    getDemandList(){
+    getDemandList(){ 
       Indicator.open({
         text: '加载中...',
         spinnerType: 'fading-circle'

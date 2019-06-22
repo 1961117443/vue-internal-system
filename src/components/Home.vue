@@ -40,7 +40,7 @@ export default {
       showNav:true
     };
   },
-  created() {
+  created() { 
     this.showBack = this.$route.path === "/home/workbench" ? false : true;
    // this.showNav = this.$route.path === "/home/workbench" || this.$route.path==="/home/user"? true : false;
   },

@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store';
 
 //引用api文件
 import api from './api/http.js'
@@ -57,6 +58,7 @@ Vue.filter('interceptFormat',function(str,length=0){
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

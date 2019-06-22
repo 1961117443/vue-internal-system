@@ -60,8 +60,8 @@ export default {
   data() {
     return {
       user: {
-        account: "admin",
-        password: "123456"
+        account: "010",
+        password: "123"
       }
     };
   },
@@ -75,17 +75,30 @@ export default {
         Toast({ message: "请输入登陆密码！", position: "top", duration: 1000 });
         return;
       }
-      this.$api.get('/api/account/login',{userCode:this.user.account,passWord:this.user.passWord},res=>{
-        if (res.Status===0) {
-         this.$router.$access_token = res.Data
-          let instance= Toast({message:'登陆成功',duration:1000})
-          setTimeout(()=>{
-            this.$router.push('/home')
-         },1000)
-          
+      this.$api.get(
+        "/api/account/login",
+        { userCode: this.user.account, passWord: this.user.password },
+        res => {
+          //console.log(res);
+          if (res.Status === 0) {
+            this.$store.commit('setToken',res.Data) 
+            let instance = Toast({ message: "登陆成功", duration: 1000 }); 
+            setTimeout(() => {
+              if (this.$route.query.redirect) {
+                this.$router.push(this.$route.query.redirect);
+              }
+              else{
+                this.$router.push("/home");
+              }
+            }, 1000);
+          } else {
+            if (res.Message) {
+              Toast({ message: res.Message, position: "top", duration: 1000 });
+            }
+          }
+          // console.log(res);
         }
-       // console.log(res);
-      })
+      );
       // console.log(this);
       // Toast(JSON.stringify(this.user));
     }

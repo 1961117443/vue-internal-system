@@ -53,7 +53,7 @@
 import { Toast, MessageBox, Indicator } from "mint-ui";
 export default {
   data() {
-    return {
+    return { 
       //demand:{}
     };
   },
@@ -80,7 +80,7 @@ export default {
           text: "审核中...",
           spinnerType: "fading-circle"
         });
-        this.$api.post("/api/demand/audit", { id: this.id }, res => {
+        this.$api.post("/api/demand/audit/", { id:id  }, res => {
           //this.demand=res.data
           Indicator.close();
           Toast({
@@ -88,7 +88,8 @@ export default {
             position: "center",
             duration: 500
           });
-        });
+        })
+        .finally(()=>Indicator.close());
       });
     },
     unauditHandler(id) {

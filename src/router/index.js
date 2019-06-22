@@ -21,7 +21,7 @@ export default new Router({
     },
     {
       path: '/login',
-      component: Login
+      component: Login,props: { name: 'world' }
     },
     {
       path: '/reg',
