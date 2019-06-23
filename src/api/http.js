@@ -1,11 +1,13 @@
-
 import store from "../store";
 import router from "../router/index";
-import { Toast, Indicator } from 'mint-ui';
+import {
+  Toast,
+  Indicator
+} from 'mint-ui';
 
 // 配置API接口地址
-var root = "http://localhost:3000"
-// var root = 'http://fa5yyd.natappfree.cc'
+// var root = "http://localhost:3000"
+var root = 'http://exdshd.natappfree.cc'
 // 引用axios
 var axios = require('axios')
 // 自定义判断元素类型JS
@@ -57,33 +59,39 @@ axios.interceptors.response.use(res => res, error => {
     switch (error.response.status) {
       case 401:
         if (store.state.access_token) {
-          // this.get(router.currentRoute.fullPath)
-          //   console.log(router.currentRoute.fullPath);
-          apiAxios('GET', '/api/account/refreshtoken', { access_token: store.state.access_token }, res => {
-            console.log('旧token:'+store.state.access_token)
-            console.log(res)
-            store.commit('setToken', res.Message)
-            console.log('新token:'+store.state.access_token)
-            console.log("token刷新了，正在跳转：" + router.currentRoute.fullPath) 
-            router.push(router.currentRoute.fullPath)
-            // router.replace({
-            //   path: router.currentRoute.fullPath,
-            //   // headers: {
-            //   //   "Authorization": "Bearer " + res.Message
-            //   // }
-            // });
-          })
-
-        } else {
-          //console.log(router.currentRoute);
-          Toast({ message: '请先登录。。。', duration: 800, position: 'top' })
-          // 返回 401 清除token信息并跳转到登录页面
-          //store.commit("saveToken", "");
-          router.replace({
-            path: "/login",
-            query: { redirect: router.currentRoute.fullPath}
-          });
+          let nowTime = new Date()
+          let dateStr = window.localStorage.getItem("refreshTime")
+          console.log(dateStr);
+          let refreshTime = dateStr ? new Date(dateStr) : new Date(-1)
+          if (refreshTime >= nowTime) {
+            return apiAxios('GET', '/api/account/refreshtoken', {
+              access_token: store.state.access_token
+            }, res => {
+              // console.log('旧token:'+store.state.access_token)
+              // console.log(error.config)
+              store.commit('setToken', res.Message)
+              // console.log('新token:'+store.state.access_token)
+              // console.log("token刷新了，正在跳转：" + router.currentRoute.fullPath) 
+              console.log(error.config);
+              error.config.__isRetryRequest = true;
+              error.config.headers.Authorization = 'Bearer ' + store.state.access_token;
+              // error.config 包含了当前请求的所有信息
+              return axios(error.config);
+            })
+          }
         }
+        // else {
+        //console.log(router.currentRoute);
+        // Toast({ message: '请先登录。。。', duration: 800, position: 'top' })
+        // 返回 401 清除token信息并跳转到登录页面
+        //store.commit("saveToken", "");
+        router.replace({
+          path: "/login",
+          query: {
+            redirect: router.currentRoute.fullPath
+          }
+        });
+        // }
 
     }
   }
@@ -104,15 +112,15 @@ function apiAxios(method, url, params, success, failure) {
     params = filterNull(params)
   }
   return axios({
-    method: method,
-    url: url,
-    data: method === 'POST' || method === 'PUT' ? params : null,
-    params: method === 'GET' || method === 'DELETE' ? params : null,
-    //headers 是即将被发送的自定义请求头，还记得我们的jwt验证么，可以封装进来，注意!这里如果要添加 headers ，一定要是正确的值
-    // headers:{"Authorization":"Bearer ******"},
-    baseURL: root,
-    withCredentials: false
-  })
+      method: method,
+      url: url,
+      data: method === 'POST' || method === 'PUT' ? params : null,
+      params: method === 'GET' || method === 'DELETE' ? params : null,
+      //headers 是即将被发送的自定义请求头，还记得我们的jwt验证么，可以封装进来，注意!这里如果要添加 headers ，一定要是正确的值
+      // headers:{"Authorization":"Bearer ******"},
+      baseURL: root,
+      withCredentials: false
+    })
     .then(function (res) {
       if (res.status === 200) {
         if (success) {

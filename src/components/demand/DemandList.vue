@@ -34,6 +34,10 @@ export default {
   components: {
     DemandCard
   },
+  created(){
+    console.log('demandlist is created');
+    console.log(this);
+  },
   mounted(){
     this.getDemandList();
   },

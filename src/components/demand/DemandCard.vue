@@ -80,7 +80,7 @@ export default {
           text: "审核中...",
           spinnerType: "fading-circle"
         });
-        this.$api.post("/api/demand/audit/", { id:id  }, res => {
+        this.$api.post("/api/demand/audit?id="+ id, null, res => {
           //this.demand=res.data
           Indicator.close();
           Toast({
