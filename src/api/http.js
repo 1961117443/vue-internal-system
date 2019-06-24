@@ -84,7 +84,7 @@ axios.interceptors.response.use(res => {
             })
             .then(function (res) {  
               console.log(res);
-              store.commit('setToken', res.Message) 
+              store.commit('setToken', res.data.Message) 
               error.config.__isRetryRequest = true
               error.config.headers.Authorization = 'Bearer ' + store.state.authToken
               
