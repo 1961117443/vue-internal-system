@@ -4,11 +4,15 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store';
+import msg from './utils/messageBox';  
 
 //引用api文件
 import api from './api/http.js'
-//讲API方法绑定到全局
+//将API方法绑定到全局
 Vue.prototype.$api = api
+
+//将Msg工具绑定到全局 
+Vue.prototype.$msg = msg
 
 //引入mint-ui
 import MintUI from  'mint-ui'

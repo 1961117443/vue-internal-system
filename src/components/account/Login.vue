@@ -67,6 +67,7 @@ export default {
   },
   methods: {
     userLogin() {
+      // console.log(this.$route);
       if (!this.user.account) {
         Toast({ message: "请输入登陆账号！", position: "top", duration: 1000 });
         return;

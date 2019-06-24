@@ -1,13 +1,14 @@
 import store from "../store";
 import router from "../router/index";
+import msg from '../utils/messageBox';
 import {
   Toast,
   Indicator
 } from 'mint-ui';
 
 // 配置API接口地址
-// var root = "http://localhost:3000"
-var root = 'http://exdshd.natappfree.cc'
+var root = "http://localhost:3000"
+// var root = 'http://6w68bx.natappfree.cc'
 // 引用axios
 var axios = require('axios')
 // 自定义判断元素类型JS
@@ -30,23 +31,25 @@ function filterNull(o) {
   }
   return o
 }
-
+ 
 /*
   axios 请求发送拦截处理
 */
+//var loadingInstance; //加载中动画
 axios.interceptors.request.use(
-  config => {
+  config => { 
     // console.log(router)
-    if (store.state.access_token) {
-      config.headers.Authorization = "Bearer " + store.state.access_token;
-    }
-    // if (storeTemp.state.token) {
-    //   // 判断是否存在token，如果存在的话，则每个http header都加上token
-    //   config.headers.Authorization ="Bearer "+ storeTemp.state.token;
-    // }
+    if (store.state.authToken) {
+      config.headers.Authorization = "Bearer " + store.state.authToken;
+    } 
+   // console.log(config);
+    //1、弹出动画 
+    msg.showLoading()
     return config;
   },
   err => {
+    //出现异常 关闭动画
+    msg.closeLoading()
     return Promise.reject(err);
   }
 )
@@ -54,45 +57,76 @@ axios.interceptors.request.use(
 /*
   axios 请求返回拦截处理
 */
-axios.interceptors.response.use(res => res, error => {
+axios.interceptors.response.use(res => {
+  //2、关闭动画
+  msg.closeLoading()
+  return res
+}, error => {
+  msg.closeLoading()
   if (error.response) {
     switch (error.response.status) {
       case 401:
-        if (store.state.access_token) {
+        if (store.state.authToken) {
           let nowTime = new Date()
           let dateStr = window.localStorage.getItem("refreshTime")
-          console.log(dateStr);
           let refreshTime = dateStr ? new Date(dateStr) : new Date(-1)
           if (refreshTime >= nowTime) {
-            return apiAxios('GET', '/api/account/refreshtoken', {
-              access_token: store.state.access_token
-            }, res => {
-              // console.log('旧token:'+store.state.access_token)
-              // console.log(error.config)
-              store.commit('setToken', res.Message)
-              // console.log('新token:'+store.state.access_token)
-              // console.log("token刷新了，正在跳转：" + router.currentRoute.fullPath) 
-              console.log(error.config);
-              error.config.__isRetryRequest = true;
-              error.config.headers.Authorization = 'Bearer ' + store.state.access_token;
-              // error.config 包含了当前请求的所有信息
-              return axios(error.config);
+           // console.log(error); 
+            return axios({
+              method: 'get',
+              url: '/api/account/refreshtoken', 
+              params: {
+                access_token: store.state.authToken
+              }, 
+              baseURL: root,
+              withCredentials: false,
+              headers:{"Authorization" : "Bearer " + store.state.authToken}
             })
+            .then(function (res) {  
+              console.log(res);
+              store.commit('setToken', res.Message) 
+              error.config.__isRetryRequest = true
+              error.config.headers.Authorization = 'Bearer ' + store.state.authToken
+              
+              Toast({message:'authToken已刷新，重新发起请求',duration:2000})
+             // console.log(error.config);
+              // error.config 包含了当前请求的所有信息
+              let ajax= axios(error.config)
+              // if (s) {
+              //   ajax = ajax.then(s)
+              // }
+              return ajax
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+            
+            // return apiAxios('GET', '/api/account/refreshtoken', {
+            //   access_token: store.state.authToken
+            // }, res => {
+            //   store.commit('setToken', res.Message) 
+            //   error.config.__isRetryRequest = true
+            //   error.config.headers.Authorization = 'Bearer ' + store.state.authToken
+              
+            //   Toast({message:'authToken已刷新，重新发起请求',duration:2000})
+            //   console.log(error.config);
+            //   // error.config 包含了当前请求的所有信息
+            //   let ajax= axios(error.config)
+            //   if (s) {
+            //     ajax = ajax.then(s)
+            //   }
+            //   return ajax
+            // })
           }
-        }
-        // else {
-        //console.log(router.currentRoute);
-        // Toast({ message: '请先登录。。。', duration: 800, position: 'top' })
-        // 返回 401 清除token信息并跳转到登录页面
-        //store.commit("saveToken", "");
+        } 
         router.replace({
           path: "/login",
           query: {
             redirect: router.currentRoute.fullPath
           }
         });
-        // }
-
+        console.log('页面跳转'); 
+      break;
     }
   }
   return Promise.reject(error.response.data); // 返回接口返回的错误信息
@@ -106,11 +140,12 @@ axios.interceptors.response.use(res => res, error => {
   主要是，不同的接口的成功标识和失败提示是不一致的。
   另外，不同的项目的处理方法也是不一致的，这里出错就是简单的alert
 */
-
+let s=null
 function apiAxios(method, url, params, success, failure) {
   if (params) {
     params = filterNull(params)
   }
+  s = success
   return axios({
       method: method,
       url: url,
@@ -122,31 +157,29 @@ function apiAxios(method, url, params, success, failure) {
       withCredentials: false
     })
     .then(function (res) {
-      if (res.status === 200) {
-        if (success) {
-          success(res.data)
-        }
-      } else {
-        if (failure) {
-          failure(res.data)
+      if (res) {
+        if (res.status === 200) {
+          if (success) {
+            success(res.data)
+          }
         } else {
-          window.alert('error: ' + JSON.stringify(res.data))
+          if (failure) {
+            failure(res.data)
+          } else {
+            window.alert('error: ' + JSON.stringify(res.data))
+          }
         }
       }
     })
     .catch(function (err) {
-      let res = err.response
-      if (err) {
-        console.log(err);
-        if (res && res.status) {
-          window.alert('api error, HTTP CODE: ' + res.status)
-        }
-      }
-    })
-  // .finally(function(){
-  //   console.log('finally');
-  // })
-
+      console.log(err);
+      // let res = err.response
+      // if (err) {        
+      //   if (res && res.status) {
+      //     window.alert('api error, HTTP CODE: ' + res.status)
+      //   }
+      // }
+    })  
 }
 
 // 返回在vue模板中的调用接口

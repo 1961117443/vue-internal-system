@@ -53,70 +53,97 @@
 import { Toast, MessageBox, Indicator } from "mint-ui";
 export default {
   data() {
-    return { 
-      //demand:{}
+    return {  
     };
-  },
-  props: {
-    demand: {
-      type: Object,
-      default: {
-        ID: "",
-        BillCode: "",
-        InputDate: "",
-        CustomerName: "",
-        Describe: "",
-        AuditDate: ""
-      }
-    }
-  },
+  }, 
+  props:['demand'],
+  // props: {
+  //   demand: {
+  //     type: Object,
+  //     default: {
+        // ID: "",
+        // BillCode: "",
+        // InputDate: "",
+        // CustomerName: "",
+        // Describe: "",
+        // AuditDate: ""
+  //     }
+  //   }
+  // },
   methods: {
     infoHandler(id) {
       this.$router.push("/home/demandinfo/" + id);
     },
-    auditHandler(id) {
-      MessageBox.confirm("确定执行此操作?").then(action => {
-        Indicator.open({
-          text: "审核中...",
-          spinnerType: "fading-circle"
-        });
-        this.$api.post("/api/demand/audit?id="+ id, null, res => {
-          //this.demand=res.data
-          Indicator.close();
-          Toast({
-            message: "操作成功",
-            position: "center",
-            duration: 500
-          });
-        })
-        .finally(()=>Indicator.close());
-      });
+    auditHandler(id) { 
+      this.$msg.yesNoBox("确定执行此操作?").then(action=>{
+          if (action) {
+            this.$api.post("/api/demand/audit?id="+ id, null, res => { 
+              if (res.Message) {
+                this.$msg.showMessageOnTop(res.Message) 
+              } 
+              for(var key in res.Data){
+                if (key in this.demand) {
+                  this.demand[key] = res.Data[key]
+                } 
+              } 
+            })
+          }
+      })
+      // MessageBox.confirm("确定执行此操作?").then(action => {
+      //   // Indicator.open({
+      //   //   text: "审核中...",
+      //   //   spinnerType: "fading-circle"
+      //   // });
+      //   this.$api.post("/api/demand/audit?id="+ id, null, res => {
+      //     //this.demand=res.data
+      //     this.$msg.showMessageOnTop("操作成功")
+      //    // Indicator.close();
+      //     // Toast({
+      //     //   message: "操作成功",
+      //     //   position: "center",
+      //     //   duration: 500
+      //     // });
+      //   })
+      //  // .finally(()=>Indicator.close());
+      // });
     },
     unauditHandler(id) {
-      MessageBox.confirm("确定执行此操作?").then(action => {
-        Indicator.open({
-          text: "反审中...",
-          spinnerType: "fading-circle"
-        });
-        setTimeout(() => {
-          this.demand.AuditDate = "";
-          Indicator.close();
-        }, 800);
-      });
+      this.$msg.yesNoBox("确定执行此操作?").then(action=>{
+          console.log(action);
+      })
+      // MessageBox.confirm("确定执行此操作?").then(action => {
+      //   Indicator.open({
+      //     text: "反审中...",
+      //     spinnerType: "fading-circle"
+      //   });
+      //   setTimeout(() => {
+      //     this.demand.AuditDate = "";
+      //     Indicator.close();
+      //   }, 800);
+      // });
     },
     rejectHandler(id) {
-      MessageBox.prompt("拒批原因", "")
-        .then(({ value, action }) => {
-          Indicator.open({
-            text: "拒批中...",
-            spinnerType: "fading-circle"
-          });
+      this.$msg.yesNoBox("确定执行此操作?").then(action=>{
+        if (action) {
+          this.$msg.showLoading() 
           setTimeout(() => {
             // this.demand.AuditDate = "";
-            Indicator.close();
+             this.$msg.closeLoading()
           }, 800);
-        })
-        .catch(ex => {});
+        } 
+      })
+      // MessageBox.prompt("拒批原因", "")
+      //   .then(({ value, action }) => {
+      //     Indicator.open({
+      //       text: "拒批中...",
+      //       spinnerType: "fading-circle"
+      //     });
+      //     setTimeout(() => {
+      //       // this.demand.AuditDate = "";
+      //       Indicator.close();
+      //     }, 800);
+      //   })
+      //   .catch(ex => {});
     }
   }
 };

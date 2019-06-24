@@ -35,21 +35,16 @@ export default {
     DemandCard
   },
   created(){
-    console.log('demandlist is created');
-    console.log(this);
-  },
-  mounted(){
     this.getDemandList();
   },
+  // mounted(){
+  //   this.getDemandList();
+  // },
   methods: {
     //获取需求列表
-    getDemandList(){ 
-      Indicator.open({
-        text: '加载中...',
-        spinnerType: 'fading-circle'
-      }); 
+    getDemandList(){   
       var index=this.currentPageIndex
-     this.$api.get('/api/demand/list',{pageIndex:index,pageSize:10},
+      let ajax= this.$api.get('/api/demand/list',{pageIndex:index,pageSize:10},
       res=>{
         ///如果没有数据了，不显示加载更多按钮
         if(res.Data.length===0){
@@ -57,10 +52,9 @@ export default {
         }
         this.demands = this.demands.concat(res.Data)
         this.currentPageIndex=index+1 
-      })
-      .finally(()=>{
-        Indicator.close();
       }) 
+    //  console.log(ajax.then);
+      return ajax
     },
     loadTop() {
       // var index=this.currentPageIndex

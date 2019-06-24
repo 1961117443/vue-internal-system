@@ -6,19 +6,17 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     //初始化的数据
     state:{
-        access_token:''
+        authToken:''
     },
     //改变state里面的值的方法
     mutations:{
         setToken(state,data){
-            state.access_token = data
+            state.authToken = data
             window.localStorage.setItem("token",data) 
-            //滑动刷新的过期时间 30分钟 30*60秒
+            //滑动刷新的过期时间 30分钟= 30*60秒
             var curTime  = new Date()
-            curTime.setMilliseconds(curTime.getSeconds() + 30*60)
-            window.localStorage.setItem("refreshTime",curTime)
-
-            console.log(curTime);
+            curTime.setSeconds(curTime.getSeconds() + 30*60)  
+            window.localStorage.setItem("refreshTime",curTime) 
         }
     }
 })
