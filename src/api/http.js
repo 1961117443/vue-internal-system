@@ -7,8 +7,8 @@ import {
 } from 'mint-ui';
 
 // 配置API接口地址
-var root = "http://localhost:3000"
-// var root = 'http://6w68bx.natappfree.cc'
+// var root = "http://localhost:3000"
+var root = 'http://6w68bx.natappfree.cc'
 // 引用axios
 var axios = require('axios')
 // 自定义判断元素类型JS
@@ -88,35 +88,14 @@ axios.interceptors.response.use(res => {
               error.config.__isRetryRequest = true
               error.config.headers.Authorization = 'Bearer ' + store.state.authToken
               
-              Toast({message:'authToken已刷新，重新发起请求',duration:2000})
+             // Toast({message:'authToken已刷新，重新发起请求',duration:2000})
              // console.log(error.config);
               // error.config 包含了当前请求的所有信息
-              let ajax= axios(error.config)
-              // if (s) {
-              //   ajax = ajax.then(s)
-              // }
-              return ajax
+              return axios(error.config)
             })
             .catch(function (error) {
               console.log(error);
-            });
-            
-            // return apiAxios('GET', '/api/account/refreshtoken', {
-            //   access_token: store.state.authToken
-            // }, res => {
-            //   store.commit('setToken', res.Message) 
-            //   error.config.__isRetryRequest = true
-            //   error.config.headers.Authorization = 'Bearer ' + store.state.authToken
-              
-            //   Toast({message:'authToken已刷新，重新发起请求',duration:2000})
-            //   console.log(error.config);
-            //   // error.config 包含了当前请求的所有信息
-            //   let ajax= axios(error.config)
-            //   if (s) {
-            //     ajax = ajax.then(s)
-            //   }
-            //   return ajax
-            // })
+            }); 
           }
         } 
         router.replace({
@@ -125,7 +104,6 @@ axios.interceptors.response.use(res => {
             redirect: router.currentRoute.fullPath
           }
         });
-        console.log('页面跳转'); 
       break;
     }
   }

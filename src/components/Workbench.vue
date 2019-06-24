@@ -24,7 +24,7 @@
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
         <a href="#">
           <span class="mui-icon mui-icon-location"></span>
-          <div class="mui-media-body">定位</div>
+          <div class="mui-media-body">需求录入</div>
         </a>
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">

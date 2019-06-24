@@ -1,5 +1,37 @@
 <template>
   <div>
+    <!--顶部滑动条-->
+    <div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll">
+            <a class="mui-control-item mui-active" href="#item1mobile" data-wid="tab-top-subpage-1.html">
+							未审核
+						</a>
+            <a class="mui-control-item" href="#item1mobile" data-wid="tab-top-subpage-1.html">
+							已审核
+						</a>
+            <a class="mui-control-item" href="#item1mobile" data-wid="tab-top-subpage-1.html">
+							已拒批
+						</a>
+						<a class="mui-control-item" href="#item1mobile" data-wid="tab-top-subpage-1.html">
+							推荐
+						</a>
+						<a class="mui-control-item" href="#item2mobile" data-wid="tab-top-subpage-2.html">
+							热点
+						</a>
+						<a class="mui-control-item" href="#item3mobile" data-wid="tab-top-subpage-3.html">
+							北京
+						</a>
+						<a class="mui-control-item" href="#item4mobile" data-wid="tab-top-subpage-4.html">
+							社会
+						</a>
+						<a class="mui-control-item" href="#item5mobile" data-wid="tab-top-subpage-5.html">
+							娱乐
+						</a>
+					</div>
+				</div>
+
+			</div>
     <!-- <mt-loadmore
       :top-method="loadTop"
       :bottom-method="loadBottom"
@@ -21,8 +53,12 @@
 </template>
 
 <script>
+// import mui from "../../lib/mui/js/mui.min.js";
 import DemandCard from "@/components/demand/DemandCard.vue";
-import { Indicator } from 'mint-ui';
+// import { Indicator } from 'mint-ui'; 
+//1、导入mui.js
+
+
 export default {
   data() {
     return {
@@ -37,14 +73,19 @@ export default {
   created(){
     this.getDemandList();
   },
-  // mounted(){
-  //   this.getDemandList();
-  // },
+  mounted(){
+    // this.getDemandList();
+    //2、初始化
+    // console.log(mui);
+    // mui('.mui-scroll-wrapper').scroll({
+    // 	deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+    // });
+  },
   methods: {
     //获取需求列表
     getDemandList(){   
       var index=this.currentPageIndex
-      let ajax= this.$api.get('/api/demand/list',{pageIndex:index,pageSize:10},
+      return this.$api.get('/api/demand/list',{pageIndex:index,pageSize:10},
       res=>{
         ///如果没有数据了，不显示加载更多按钮
         if(res.Data.length===0){
@@ -52,9 +93,7 @@ export default {
         }
         this.demands = this.demands.concat(res.Data)
         this.currentPageIndex=index+1 
-      }) 
-    //  console.log(ajax.then);
-      return ajax
+      })  
     },
     loadTop() {
       // var index=this.currentPageIndex
@@ -99,4 +138,8 @@ export default {
 .fade-enter, .fade-leave-to /* .fade-leave-active, 2.1.8 版本以下 */ {
     opacity: 0
 }
+
+// * {
+//   touch-action: pan-y;
+// }
 </style>
