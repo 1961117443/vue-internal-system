@@ -8,7 +8,7 @@ import {
 
 // 配置API接口地址
 // var root = "http://localhost:3000"
-var root = 'http://6w68bx.natappfree.cc'
+var root = 'http://khd3uc.natappfree.cc'
 // 引用axios
 var axios = require('axios')
 // 自定义判断元素类型JS
