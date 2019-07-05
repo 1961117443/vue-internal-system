@@ -68,9 +68,9 @@ export default {
   padding-bottom: 50px; 
   // overflow-x:hidden;
 }
-// mui-bar-tab {
-//   z-index: 99;
-// }
+.mui-bar-tab {
+  z-index: 99;
+}
 
 .v-enter{
   opacity: 0;

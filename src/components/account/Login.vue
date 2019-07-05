@@ -80,7 +80,7 @@ export default {
         "/api/account/login",
         { userCode: this.user.account, passWord: this.user.password },
         res => {
-          //console.log(res);
+          console.log(res);
           if (res.Status === 0) {
             this.$store.commit('setToken',res.Data) 
             let instance = Toast({ message: "登陆成功", duration: 1000 }); 

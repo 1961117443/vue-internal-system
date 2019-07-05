@@ -10,6 +10,7 @@ import Login from '@/components/account/Login.vue';
 import Reg from '@/components/account/Register.vue';
 import DemandList from '@/components/demand/DemandList.vue';
 import DemandInfo from '@/components/demand/DemandInfo.vue';
+import DemandEdit from '@/components/demand/DemandEdit.vue';
 
 Vue.use(Router)
 
@@ -46,9 +47,13 @@ export default new Router({
         {
           path: 'demandinfo/:id',
           component: DemandInfo
+        },
+        {
+          path:'demand/edit',
+          component:DemandEdit
         }
       ]
-    },
+    }
 
     // {
     //   path: '/workbench',
